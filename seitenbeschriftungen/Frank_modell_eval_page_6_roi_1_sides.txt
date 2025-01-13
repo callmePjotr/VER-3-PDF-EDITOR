@@ -1,0 +1,34 @@
+No breast
+cancer or
+ovarian
+cancer at
+any age
+
+Breast cancer
+= 50 years
+of age
+
+Breast cancer
+< 50 years
+of age
+
+Ovarian
+cancer at
+any age, nc
+breast
+cancer
+
+Breast cancer
+= 50 years
+of age and
+ovarian
+cancer at
+any age
+
+Breast cancer
+< 50 years
+of age and
+ovarian
+cancer at
+any age
+

@@ -1,0 +1,22 @@
+Breast cancer
+= 50 years
+of age
+
+Breast cancer
+40-49 years
+of age
+
+Breast cancer
+< AO years
+of age
+
+Ovarian cancer
+= 50 years
+of age, no
+breast cancer
+
+Ovarian cancer
+< 50 years
+of age, no
+breast cancer
+
