@@ -144,3 +144,53 @@ Im wesentlichen wird das Problem in drei Schritten gelöst:
 ![alt text](image-7.png)
 - hier sieht man das ergebnis von Tabula
 - habe das für das frank Paper getestet
+
+### concatenate.py
+- ist der Lösungsansatz der von mir teilweise entwickelt wurde
+- es gibt noch zahleiche weitere Herausforderungen
+- zum Beispiel dann, wenn die Tabelle weiter unterteilt wird
+- dann sind pro Feld in der Tabelle zwei Werte vorhanden
+- das nacht ein Parsing relativ schwierig
+- mein Ansatz ist hochgradig eingeschränkt
+- erfordert, dass die Daten vernünftig formatiert sind
+
+1. die Textblöcke für die Köpfe müssen zusammenhängend sein 
+2. pro Tabellenfeld darf nur ein Wert vorliegen 
+    - Kopf x Spalten -> 6x6 = 36 Werte für den Content Teil
+    - ansonsten wird keine .csv erzeugt
+3. die Reihenfolge, in der Tesseract liest, muss bekannt sein
+    - ist abhängig von Strukturelementen in der Tabelle
+
+
+- wenn diese Vorraussetzungen erfüllt sind wird eine .csv erzeugt
+- diese ist dann mit hoher Wahrscheinlichkeit auch korrekt
+- da die extrahierten Textdateien eine relativ hohe Qualität aufweisen, wenn vernünftig annotiert wurde, ist dies der Bereich, der noch am Meisten Arbeit benötigt
+
+### Ausblick
+- wie wird die Parsing Reihenfolge angegeben?
+- wie wird die **concatenate.py** in das Hauptprogramm integriert?
+- wie werden Tabellen mit doppelten Unterteilungen behandelt?
+
+![alt text](image-8.png)
+- bisher werden für alle drei Tabellenbereiche keine Konfigurationen an tesseract vorgenommen
+- denkbar ist jedoch eine Anpassung daran, wie tesseract arbeitet
+- in dem Codebeispiel wird mit --psm 6 tesseract gezwungen, zeilenweise zu arbeiten
+- die Ausgabe davon ist anders aber eventuell sehr viel praktikabler:
+
+        9/229 3.9 19/434 4A 46/419 11 6/153 3.9 10/117 8.5 58/354 16.4
+        4/172 2.3 22/197 11.2 12/118 10.2 3/69 4.3 1/18 5.6 19/87 21.8
+        55/579 9.5 89/484 18.4 117/322 36.3 34/194 17.5 7/42 16.7 126/267 47.2
+        5/77 6.5 14/41 34.1 11/26 42.3 23/83 27.7 12/28 42.9 38/71 53.5
+        5/27 18.5 1/9 11 4/11 36.4 1/6 17 1/3 33 3/6 50
+        5/25 20 7/14 50 A/5 80 5/9 56 2/2 100 13/18 72.2
+
+- der aktuelle Parser ist jedoch auf eine vertikale Vearbeitung eingestellt!
+- wichtig ist, dass eine große Menge an Tests durchgeführt wird
+- erst dann sollte sich damit beschäftigt werden den Parser weiterzuentwickeln und mit ins Programm aufzunehmen
+- das alternative Programm ist im Ordner **"alternative_Verarbeitung"** zu finden
+- meine Empfehlung: diese Version für die OCR von den Tabelleninhalten verwenden und einen  einheitlichen Parser entwickeln
+
+![alt text](image-9.png)
+- so wird tesseract im Editor aufgerufen
+- das Ergebnis ist dann wie oben dargestellt
+- außerdem abhängig von den Strukturelementen

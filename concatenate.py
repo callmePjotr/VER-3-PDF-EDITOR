@@ -52,7 +52,9 @@ def create_table(header_blocks, side_blocks, content_blocks):
     header_rows = split_lines_into_cells(header_blocks)
     side_rows = split_lines_into_cells(side_blocks)
 
-    # Dimensionen der Tabelle bestimmen
+    # Dimensionen der Tabelle bestimmen, indem die zusammenhängenden Textblöcke ermittelt werden
+    # jede Zeile wird zu einem Element
+    # tritt eine leere Zeile auf, handelt es sich um einen neuen Textblock
     num_rows = len(side_rows)
     num_cols = len(header_rows)
 
@@ -68,12 +70,16 @@ def create_table(header_blocks, side_blocks, content_blocks):
     # Kopfzeilen in die Tabelle einfügen
     for col_index, header in enumerate(header_rows):
         table[0][col_index + 1] = " ".join(header)
+    # durch das .join() werden die Zeilen wieder zu einem String zusammengefügt
+
 
     # Seitenbeschriftungen in die Tabelle einfügen
     for row_index, side in enumerate(side_rows):
         table[row_index + 1][0] = " ".join(side)
 
     # Inhalte spaltenweise in die Tabelle einfügen
+    # im auskommentierte Block ist das umgedreht
+    # das ist also die Version, die genutzt werden muss, wenn tesseract spaltenweise gelesen hat
     content_index = 0
     for col in range(1, num_cols + 1):
         for row in range(1, num_rows + 1):
@@ -81,6 +87,58 @@ def create_table(header_blocks, side_blocks, content_blocks):
             content_index += 1
 
     return table
+
+
+"""
+- das ist die Version für das Parsing Zeilenweise
+- die obige Funktion erzeugt aus dem Frank Paper eine richtige Tabelle
+- da ist das Parsing aufgrund der fehlenden Linien spaltenweise
+
+
+
+
+def create_table(header_blocks, side_blocks, content_blocks):
+
+header_rows = split_lines_into_cells(header_blocks)
+side_rows = split_lines_into_cells(side_blocks)
+
+# Dimensionen der Tabelle bestimmen
+num_rows = len(side_rows)
+num_cols = len(header_rows)  # Annahme: alle Zeilen in header_blocks haben dieselbe Anzahl an Spalten
+
+# Inhalte aufteilen und in Zellen einfügen
+content_values = [item for block in split_lines_into_cells(content_blocks) for item in block]
+
+# Debugging: Ausgabe der Maße
+print(f"Header-Spalten: {num_cols}, Seitenzeilen: {num_rows}, Inhalte: {len(content_values)}")
+
+if len(content_values) != num_rows * num_cols:
+    raise ValueError("Die Anzahl der Inhalte stimmt nicht mit den Tabellenmaßen überein.")
+
+# Tabelle erstellen
+table = [[""] * (num_cols + 1) for _ in range(num_rows + 1)]
+
+# Kopfzeilen in die Tabelle einfügen
+for col_index, header in enumerate(header_rows):
+    table[0][col_index + 1] = " ".join(header)
+
+# Seitenbeschriftungen in die Tabelle einfügen
+for row_index, side in enumerate(side_rows):
+    table[row_index + 1][0] = " ".join(side)  # Alle Zeilen der Beschriftung zusammenfügen
+
+# Inhalte in die Tabelle einfügen
+content_index = 0
+for row in range(1, num_rows + 1):
+    for col in range(1, num_cols + 1):
+        table[row][col] = content_values[content_index]
+        content_index += 1
+
+return table
+
+
+
+
+"""
 
 
 def write_csv(file_path, table):
