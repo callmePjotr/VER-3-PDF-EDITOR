@@ -133,3 +133,14 @@ Im wesentlichen wird das Problem in drei Schritten gelöst:
 - weiterhin hat diese Tabelle eine doppelte Unterteilung
 - zusätzlich zu den Werten 9/229 wird noch ein prozentualer Anteil angegeben
 
+
+- es gibt bereits Software, die all das für uns macht
+- das erste was man findet ist Tabula
+- ich habe das mal getestet
+- funktioniert auch mit einer ROI Markierung
+- die Koordinaten der Tabelle werden gesucht 
+- der text zwischen den koordinaten wird extrahiert
+
+![alt text](image-7.png)
+- hier sieht man das ergebnis von Tabula
+- habe das für das frank Paper getestet
